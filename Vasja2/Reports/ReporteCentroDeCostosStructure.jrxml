@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteCentroDeCostos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="567" leftMargin="14" rightMargin="14" topMargin="14" bottomMargin="14">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     cc_view.`parent0_ID` AS cc_view_parent0_ID,
+     cc_view.`parent0_CODIGO` AS cc_view_parent0_CODIGO,
+     cc_view.`parent0_ISLEAF` AS cc_view_parent0_ISLEAF,
+     cc_view.`parent0_NOMBRE` AS cc_view_parent0_NOMBRE,
+     cc_view.`parent0_LEVEL` AS cc_view_parent0_LEVEL,
+     cc_view.`parent1_ID` AS cc_view_parent1_ID,
+     cc_view.`parent1_CODIGO` AS cc_view_parent1_CODIGO,
+     cc_view.`parent1_ISLEAF` AS cc_view_parent1_ISLEAF,
+     cc_view.`parent1_NOMBRE` AS cc_view_parent1_NOMBRE,
+     cc_view.`parent1_LEVEL` AS cc_view_parent1_LEVEL,
+     cc_view.`parent2_ID` AS cc_view_parent2_ID,
+     cc_view.`parent2_CODIGO` AS cc_view_parent2_CODIGO,
+     cc_view.`parent2_ISLEAF` AS cc_view_parent2_ISLEAF,
+     cc_view.`parent2_NOMBRE` AS cc_view_parent2_NOMBRE,
+     cc_view.`parent2_LEVEL` AS cc_view_parent2_LEVEL,
+     cc_view.`det_ID` AS cc_view_det_ID,
+     cc_view.`det_CODIGO` AS cc_view_det_CODIGO,
+     cc_view.`det_ISLEAF` AS cc_view_det_ISLEAF,
+     cc_view.`det_NOMBRE` AS cc_view_det_NOMBRE,
+     cc_view.`det_LEVEL` AS cc_view_det_LEVEL,
+     cc_view.`parent0_cuenta` AS cc_view_parent0_cuenta,
+     cuenta.`NOMBRE` AS cuenta_NOMBRE,
+     cuenta.`NUMERO` AS cuenta_NUMERO
+FROM
+     `cuenta` cuenta RIGHT OUTER JOIN `cc_view` cc_view ON cuenta.`ID` = cc_view.`parent0_cuenta`
+WHERE
+     cc_view.`parent0_cuenta` is null
+ORDER BY
+     cc_view_parent0_ID ASC,
+     cc_view_parent1_ID ASC,
+     cc_view_parent2_ID ASC,
+     cc_view_det_ID ASC]]>
+	</queryString>
+	<field name="cc_view_parent0_ID" class="java.lang.Long"/>
+	<field name="cc_view_parent0_CODIGO" class="java.lang.String"/>
+	<field name="cc_view_parent0_ISLEAF" class="java.lang.Integer"/>
+	<field name="cc_view_parent0_NOMBRE" class="java.lang.String"/>
+	<field name="cc_view_parent0_LEVEL" class="java.lang.Integer"/>
+	<field name="cc_view_parent1_ID" class="java.lang.String"/>
+	<field name="cc_view_parent1_CODIGO" class="java.lang.String"/>
+	<field name="cc_view_parent1_ISLEAF" class="java.lang.String"/>
+	<field name="cc_view_parent1_NOMBRE" class="java.lang.String"/>
+	<field name="cc_view_parent1_LEVEL" class="java.lang.String"/>
+	<field name="cc_view_parent2_ID" class="java.lang.String"/>
+	<field name="cc_view_parent2_CODIGO" class="java.lang.String"/>
+	<field name="cc_view_parent2_ISLEAF" class="java.lang.String"/>
+	<field name="cc_view_parent2_NOMBRE" class="java.lang.String"/>
+	<field name="cc_view_parent2_LEVEL" class="java.lang.String"/>
+	<field name="cc_view_det_ID" class="java.lang.String"/>
+	<field name="cc_view_det_CODIGO" class="java.lang.String"/>
+	<field name="cc_view_det_ISLEAF" class="java.lang.String"/>
+	<field name="cc_view_det_NOMBRE" class="java.lang.String"/>
+	<field name="cc_view_det_LEVEL" class="java.lang.String"/>
+	<field name="cc_view_parent0_cuenta" class="java.lang.Long"/>
+	<field name="cuenta_NOMBRE" class="java.lang.String"/>
+	<field name="cuenta_NUMERO" class="java.lang.Long"/>
+	<group name="Parent0">
+		<groupExpression><![CDATA[$F{cc_view_parent0_CODIGO}]]></groupExpression>
+		<groupHeader>
+			<band height="23">
+				<printWhenExpression><![CDATA[!$F{cc_view_parent0_ID}.equals("")]]></printWhenExpression>
+				<textField>
+					<reportElement x="56" y="0" width="47" height="20" forecolor="#006600"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cc_view_parent0_ID}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="105" y="0" width="281" height="20" forecolor="#006600"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cc_view_parent0_NOMBRE}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement mode="Opaque" x="0" y="1" width="53" height="20" forecolor="#CCCCCC" backcolor="#CCCCCC"/>
+				</rectangle>
+				<line>
+					<reportElement positionType="FixRelativeToBottom" x="53" y="21" width="502" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineColor="#999999"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Parent1">
+		<groupExpression><![CDATA[$F{cc_view_parent1_CODIGO}]]></groupExpression>
+		<groupHeader>
+			<band height="21">
+				<printWhenExpression><![CDATA[!$F{cc_view_parent1_ID}.equals(null)]]></printWhenExpression>
+				<textField>
+					<reportElement x="102" y="1" width="51" height="20"/>
+					<textElement textAlignment="Right">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cc_view_parent1_ID}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="156" y="1" width="295" height="20"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cc_view_parent1_NOMBRE}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Parent2">
+		<groupExpression><![CDATA[$F{cc_view_parent2_CODIGO}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<printWhenExpression><![CDATA[!$F{cc_view_parent2_ID}.equals(null)]]></printWhenExpression>
+				<textField>
+					<reportElement x="156" y="0" width="56" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{cc_view_parent2_ID}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="214" y="0" width="316" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{cc_view_parent2_NOMBRE}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="53">
+			<staticText>
+				<reportElement x="0" y="0" width="207" height="11"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vicariato Apostolico San Jose del Amazonas]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="14" width="555" height="39"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Rubros presupuestales"]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="455" y="0" width="100" height="11"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="20">
+			<printWhenExpression><![CDATA[!$F{cc_view_det_ID}.equals(null)]]></printWhenExpression>
+			<textField>
+				<reportElement x="266" y="0" width="261" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cc_view_det_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="214" y="0" width="51" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cc_view_det_ID}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="14">
+			<textField>
+				<reportElement x="459" y="0" width="80" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="539" y="0" width="27" height="14"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

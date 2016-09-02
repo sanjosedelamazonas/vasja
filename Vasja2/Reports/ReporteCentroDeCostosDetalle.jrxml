@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteCentroDeCostos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="573" leftMargin="11" rightMargin="11" topMargin="11" bottomMargin="11">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\ab\\workspace\\VasjaEXT\\Reports\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha_min" class="java.util.Date"/>
+	<parameter name="fecha_max" class="java.util.Date"/>
+	<parameter name="in_isPen" class="java.lang.Boolean">
+		<defaultValueExpression><![CDATA[true]]></defaultValueExpression>
+	</parameter>
+	<parameter name="in_centrocosto_id" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="in_ceunta_id" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     operacion.`ID` AS operacion_ID,
+     operacion.`DESCRIPCION` AS operacion_DESCRIPCION,
+     operacion.`FECHA` AS operacion_FECHA,
+     operacion.`ISPEN` AS operacion_ISPEN,
+     operacion.`PEN` AS operacion_PEN,
+     operacion.`centrocosto_ID` AS operacion_centrocosto_ID,
+     operacion.`cuenta_ID` AS operacion_cuenta_ID,
+     operacion.`tipodocumento_ID` AS operacion_tipodocumento_ID,
+     operacion.`usuario_ID` AS operacion_usuario_ID,
+     operacion.`operacionCORRECTED_ID` AS operacion_operacionCORRECTED_ID,
+     operacion.`operacionDETALLE_ID` AS operacion_operacionDETALLE_ID,
+     operacion.`FECHADECOBRO` AS operacion_FECHADECOBRO,
+     centrocosto.`ID` AS centrocosto_ID,
+     centrocosto.`NOMBRE` AS centrocosto_NOMBRE,
+     centrocosto.`CATEGORIAcentrocosto_ID` AS centrocosto_CATEGORIAcentrocosto_ID,
+     centrocosto.`CODIGO` AS centrocosto_CODIGO,
+     operacion.`FIRMA` AS operacion_FIRMA,
+     operacion.`ISCARGO` AS operacion_ISCARGO,
+     operacion.`USD` AS operacion_USD,
+     cuenta.`ID` AS cuenta_ID,
+     cuenta.`NOMBRE` AS cuenta_NOMBRE,
+     cuenta.`NUMERO` AS cuenta_NUMERO
+FROM
+     `centrocosto` centrocosto INNER JOIN `operacion` operacion ON centrocosto.`ID` = operacion.`centrocosto_ID`
+     INNER JOIN `cuenta` cuenta ON operacion.`cuenta_ID` = cuenta.`ID`
+WHERE
+     operacion.`centrocosto_ID` = $P{in_centrocosto_id}
+     and operacion.`cuenta_ID` = $P{in_ceunta_id}
+and operacion.`FECHA` between $P{fecha_min} and $P{fecha_max}
+and operacion.`ISPEN`=$P{in_isPen}]]>
+	</queryString>
+	<field name="operacion_ID" class="java.lang.Long"/>
+	<field name="operacion_DESCRIPCION" class="java.lang.String"/>
+	<field name="operacion_FECHA" class="java.sql.Timestamp"/>
+	<field name="operacion_ISPEN" class="java.lang.Boolean"/>
+	<field name="operacion_PEN" class="java.math.BigDecimal"/>
+	<field name="operacion_centrocosto_ID" class="java.lang.Long"/>
+	<field name="operacion_cuenta_ID" class="java.lang.Long"/>
+	<field name="operacion_tipodocumento_ID" class="java.lang.Long"/>
+	<field name="operacion_usuario_ID" class="java.lang.Long"/>
+	<field name="operacion_operacionCORRECTED_ID" class="java.lang.Long"/>
+	<field name="operacion_operacionDETALLE_ID" class="java.lang.Long"/>
+	<field name="operacion_FECHADECOBRO" class="java.sql.Timestamp"/>
+	<field name="centrocosto_ID" class="java.lang.Long"/>
+	<field name="centrocosto_NOMBRE" class="java.lang.String"/>
+	<field name="centrocosto_CATEGORIAcentrocosto_ID" class="java.lang.Long"/>
+	<field name="centrocosto_CODIGO" class="java.lang.String"/>
+	<field name="operacion_FIRMA" class="java.lang.String"/>
+	<field name="operacion_ISCARGO" class="java.lang.Boolean"/>
+	<field name="operacion_USD" class="java.math.BigDecimal"/>
+	<field name="cuenta_ID" class="java.lang.Long"/>
+	<field name="cuenta_NOMBRE" class="java.lang.String"/>
+	<field name="cuenta_NUMERO" class="java.lang.Long"/>
+	<variable name="sum_det_in" class="java.math.BigDecimal" resetType="Group" resetGroup="Detail" calculation="Sum">
+		<variableExpression><![CDATA[$F{operacion_ISCARGO}?0:($P{in_isPen}?$F{operacion_PEN}:$F{operacion_USD})]]></variableExpression>
+	</variable>
+	<variable name="sum_det_out" class="java.math.BigDecimal" resetType="Group" resetGroup="Detail" calculation="Sum">
+		<variableExpression><![CDATA[$F{operacion_ISCARGO}?($P{in_isPen}?$F{operacion_PEN}:$F{operacion_USD}):0]]></variableExpression>
+	</variable>
+	<group name="Detail">
+		<groupExpression><![CDATA[$F{operacion_centrocosto_ID}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="24">
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="408" y="3" width="78" height="21"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sum_det_in}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="488" y="2" width="77" height="21" backcolor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sum_det_out}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<title>
+		<band height="66">
+			<textField>
+				<reportElement x="0" y="10" width="573" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Reporte por centro de costos:" ]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="35" width="573" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{centrocosto_CODIGO}+" "+$F{centrocosto_NOMBRE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="30">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="0" width="40" height="30" forecolor="#CCCCCC" backcolor="#CCCCCC"/>
+			</rectangle>
+			<textField>
+				<reportElement x="46" y="0" width="57" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cuenta_NUMERO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="113" y="0" width="274" height="30"/>
+				<textElement verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cuenta_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="10" width="78" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{in_isPen}?"Ingresos s/.":"Ingresos \$"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="488" y="10" width="78" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{in_isPen}?"Egresos s/.":"Egresos \$"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="21">
+			<textField>
+				<reportElement x="113" y="0" width="40" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{operacion_FECHA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="184" y="1" width="213" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{operacion_DESCRIPCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="1" width="78" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{operacion_ISCARGO}?0:($P{in_isPen}?$F{operacion_PEN}:$F{operacion_USD})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="488" y="1" width="77" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{operacion_ISCARGO}?($P{in_isPen}?$F{operacion_PEN}:$F{operacion_USD}):0]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

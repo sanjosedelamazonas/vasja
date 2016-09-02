@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteGastosPorCentroMensual" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bd842344-0e1b-49c4-9a68-c2e022fc3473">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="str_fecha_min" class="java.lang.String"/>
+	<parameter name="str_fecha_max" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT
+     operacion.`ISPEN` AS operacion_ISPEN,
+     operacion.`PEN` AS operacion_PEN,
+     operacion.`USD` AS operacion_USD,
+     operacion.`CENTROCOSTO_ID` AS operacion_CENTROCOSTO_ID,
+     operacion.`ID` AS operacion_ID,
+     cuenta.`NOMBRE` AS cuenta_NOMBRE,
+     cuenta.`NUMERO` AS cuenta_NUMERO,
+     lugargasto.`ID` AS lugargasto_ID,
+     lugargasto.`CODIGO` AS lugargasto_CODIGO,
+     lugargasto.`DESCRIPCION` AS lugargasto_DESCRIPCION,
+     lugargasto.`ISLEAF` AS lugargasto_ISLEAF,
+     lugargasto.`LEVEL` AS lugargasto_LEVEL,
+     lugargasto.`NOMBRE` AS lugargasto_NOMBRE,
+     lugargasto.`CATEGORIALUGARGASTO_ID` AS lugargasto_CATEGORIALUGARGASTO_ID,
+     lugargasto_A.`ID` AS lugargasto_A_ID,
+     lugargasto_A.`CODIGO` AS lugargasto_A_CODIGO,
+     lugargasto_A.`ISLEAF` AS lugargasto_A_ISLEAF,
+     lugargasto_A.`NOMBRE` AS lugargasto_A_NOMBRE,
+     operacion.`LUGARGASTO_ID` AS operacion_LUGARGASTO_ID,
+     cuenta.`ISCAJA` AS cuenta_ISCAJA,
+     operacion.`DESCRIPCION` AS operacion_DESCRIPCION,
+     operacion.`FECHA` AS operacion_FECHA
+FROM
+     `lugargasto` lugargasto INNER JOIN `operacion` operacion ON lugargasto.`ID` = operacion.`LUGARGASTO_ID`
+     INNER JOIN `cuenta` cuenta ON operacion.`CUENTA_ID` = cuenta.`ID`
+     INNER JOIN `lugargasto` lugargasto_A ON lugargasto.`CATEGORIALUGARGASTO_ID` = lugargasto_A.`ID`
+WHERE
+     cuenta.`ISCAJA` = 0 and
+OPERACION.FECHA BETWEEN $P{str_fecha_min} AND $P{str_fecha_max}
+ORDER BY
+     lugargasto_A.`CODIGO` ASC,
+     lugargasto.`CODIGO` ASC,
+     cuenta.`NUMERO` ASC,
+operacion.`FECHA`]]>
+	</queryString>
+	<field name="operacion_ISPEN" class="java.lang.Boolean"/>
+	<field name="operacion_PEN" class="java.math.BigDecimal"/>
+	<field name="operacion_USD" class="java.math.BigDecimal"/>
+	<field name="operacion_CENTROCOSTO_ID" class="java.lang.Long"/>
+	<field name="operacion_ID" class="java.lang.Long"/>
+	<field name="cuenta_NOMBRE" class="java.lang.String"/>
+	<field name="cuenta_NUMERO" class="java.lang.Long"/>
+	<field name="lugargasto_ID" class="java.lang.Long"/>
+	<field name="lugargasto_CODIGO" class="java.lang.String"/>
+	<field name="lugargasto_DESCRIPCION" class="java.lang.String"/>
+	<field name="lugargasto_ISLEAF" class="java.lang.Boolean"/>
+	<field name="lugargasto_LEVEL" class="java.lang.Integer"/>
+	<field name="lugargasto_NOMBRE" class="java.lang.String"/>
+	<field name="lugargasto_CATEGORIALUGARGASTO_ID" class="java.lang.Long"/>
+	<field name="lugargasto_A_ID" class="java.lang.Long"/>
+	<field name="lugargasto_A_CODIGO" class="java.lang.String"/>
+	<field name="lugargasto_A_ISLEAF" class="java.lang.Boolean"/>
+	<field name="lugargasto_A_NOMBRE" class="java.lang.String"/>
+	<field name="operacion_LUGARGASTO_ID" class="java.lang.Long"/>
+	<field name="cuenta_ISCAJA" class="java.lang.Boolean"/>
+	<field name="operacion_DESCRIPCION" class="java.lang.String"/>
+	<field name="operacion_FECHA" class="java.sql.Timestamp"/>
+	<variable name="sum_lugar_pen" class="java.math.BigDecimal" resetType="Group" resetGroup="lugardegasto" calculation="Sum">
+		<variableExpression><![CDATA[$F{operacion_PEN}]]></variableExpression>
+	</variable>
+	<variable name="sum_fuente_pen" class="java.math.BigDecimal" resetType="Group" resetGroup="fuente" calculation="Sum">
+		<variableExpression><![CDATA[$F{operacion_PEN}]]></variableExpression>
+	</variable>
+	<variable name="sum_fuente_usd" class="java.math.BigDecimal" resetType="Group" resetGroup="fuente" calculation="Sum">
+		<variableExpression><![CDATA[$F{operacion_USD}]]></variableExpression>
+	</variable>
+	<variable name="sum_lugar_usd" class="java.math.BigDecimal" resetType="Group" resetGroup="lugardegasto" calculation="Sum">
+		<variableExpression><![CDATA[$F{operacion_USD}]]></variableExpression>
+	</variable>
+	<group name="categoria_de_lugar">
+		<groupExpression><![CDATA[$F{lugargasto_A_CODIGO}]]></groupExpression>
+		<groupHeader>
+			<band height="25">
+				<textField>
+					<reportElement uuid="7388c4dd-b19e-43c7-ae0b-a47f758918c8" x="20" y="0" width="18" height="20"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{lugargasto_A_CODIGO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="d928c838-0730-4802-b2dc-fff1fadf5345" x="39" y="0" width="346" height="20"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{lugargasto_A_NOMBRE}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="d1041e64-a46d-4c98-9073-2099343601ea" x="6" y="20" width="545" height="1"/>
+				</line>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="lugardegasto">
+		<groupExpression><![CDATA[$F{lugargasto_ID}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement uuid="d7c42278-8fa4-4eba-9b88-a223215b7a0f" x="75" y="0" width="224" height="20"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{lugargasto_NOMBRE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="2b2d96be-3d38-442f-8c4e-e7beb894b8d7" x="40" y="0" width="34" height="20"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{lugargasto_CODIGO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="b8eedfc0-7ff8-46d7-a6e1-2839bb925403" x="319" y="5" width="62" height="15"/>
+					<textElement textAlignment="Center">
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Monto S/.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="848a799e-fee5-475d-8d36-d477eab83ff3" x="387" y="5" width="62" height="15"/>
+					<textElement textAlignment="Center">
+						<font isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Monto US$]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="13">
+				<textField>
+					<reportElement uuid="2b1f7b85-25b7-440e-b7af-38244ba03fb9" x="317" y="0" width="67" height="13"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$V{sum_lugar_pen}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="40cc512f-74ae-440a-ab15-c755e085b74b" x="385" y="0" width="67" height="13"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$V{sum_lugar_usd}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="fuente">
+		<groupExpression><![CDATA[$F{cuenta_NUMERO}]]></groupExpression>
+		<groupHeader>
+			<band height="15">
+				<textField>
+					<reportElement uuid="1e684595-e6b2-4df1-a9f7-80c0435bde3a" x="72" y="0" width="228" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{cuenta_NOMBRE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="5411f6a1-5d00-4b38-9dc8-2ec3d0f78926" x="41" y="0" width="31" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{cuenta_NUMERO}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="14">
+				<textField>
+					<reportElement uuid="bf6b2ea4-9d88-4b66-bb2e-527e0c3c3b3d" x="317" y="0" width="67" height="13"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sum_fuente_pen}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="75dc220a-28ff-47d3-ac92-5aa19fc3bd54" x="385" y="0" width="67" height="13"/>
+					<textElement textAlignment="Center">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sum_fuente_usd}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="8c137b20-d662-4330-b415-5a5e9969fdcd" x="2" y="4" width="553" height="19"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Informe economico segun lugar de gasto y fuente de financiamiento]]></text>
+			</staticText>
+			<textField pattern="yyyy/MM/dd">
+				<reportElement uuid="1d9493c1-5b47-40dd-8f88-eb8aefdac010" x="221" y="25" width="59" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{str_fecha_min}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy/MM/dd">
+				<reportElement uuid="97bebd91-8329-4097-a9d8-bbb885aeecf2" x="292" y="27" width="60" height="13"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{str_fecha_max}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="19407db6-9855-46c5-af23-9a3fa21a90c0" x="203" y="26" width="16" height="14"/>
+				<textElement/>
+				<text><![CDATA[Del ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="81b3e505-72ce-4e38-92bb-849c6b475bf9" x="280" y="27" width="10" height="13"/>
+				<textElement/>
+				<text><![CDATA[al]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="11" splitType="Stretch">
+			<textField>
+				<reportElement uuid="76282b61-7011-497a-acd4-4cda35f81792" x="111" y="0" width="181" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{operacion_DESCRIPCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="289835b5-d902-4ce4-bb88-c41e2fe6699d" x="317" y="0" width="67" height="11"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{operacion_PEN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f78e8cfe-6615-4c2a-9526-b64da86c1604" x="385" y="0" width="67" height="11"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{operacion_USD}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy/MM/dd">
+				<reportElement uuid="aa1cd543-ba69-4311-ad31-ff1d6cbd32a5" x="67" y="0" width="43" height="11"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{operacion_FECHA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

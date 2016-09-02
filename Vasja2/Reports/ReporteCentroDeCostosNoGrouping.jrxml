@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteCentroDeCostos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="573" leftMargin="11" rightMargin="11" topMargin="11" bottomMargin="11" uuid="38e99f20-8118-42ce-8e1c-ba81ab64febe">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="str_fecha_min" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="str_fecha_max" class="java.lang.String">
+		<defaultValueExpression><![CDATA[new Date()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="in_isPen" class="java.lang.Boolean">
+		<defaultValueExpression><![CDATA[true]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     operacion.`ID` AS operacion_ID,
+     operacion.`FECHA` AS operacion_FECHA,
+     operacion.`ISCARGO` AS operacion_ISCARGO,
+     operacion.`ISPEN` AS operacion_ISPEN,
+     operacion.`PEN` AS operacion_PEN,
+     operacion.`USD` AS operacion_USD,
+     operacion.`centrocosto_ID` AS operacion_centrocosto_ID,
+     operacion.`ISCORRECTION` AS operacion_ISCORRECTION,
+     operacion.`cuenta_ID` AS operacion_cuenta_ID,
+     operacion.`operacionCORRECTED_ID` AS operacion_operacionCORRECTED_ID,
+     operacion.`operacionDETALLE_ID` AS operacion_operacionDETALLE_ID,
+     cuenta.`ID` AS cuenta_ID,
+     cuenta.`NOMBRE` AS cuenta_NOMBRE,
+     cuenta.`NUMERO` AS cuenta_NUMERO,
+     cc_view.`id` AS cc_view_id,
+     cc_view.`parent0_ID` AS cc_view_parent0_ID,
+     cc_view.`parent0_CODIGO` AS cc_view_parent0_CODIGO,
+     cc_view.`parent0_ISLEAF` AS cc_view_parent0_ISLEAF,
+     cc_view.`parent0_NOMBRE` AS cc_view_parent0_NOMBRE,
+     cc_view.`parent0_LEVEL` AS cc_view_parent0_LEVEL,
+     cc_view.`parent0_cuenta` AS cc_view_parent0_cuenta,
+     cc_view.`parent1_ID` AS cc_view_parent1_ID,
+     cc_view.`parent1_CODIGO` AS cc_view_parent1_CODIGO,
+     cc_view.`parent1_ISLEAF` AS cc_view_parent1_ISLEAF,
+     cc_view.`parent1_NOMBRE` AS cc_view_parent1_NOMBRE,
+     cc_view.`parent1_LEVEL` AS cc_view_parent1_LEVEL,
+     cc_view.`parent2_ID` AS cc_view_parent2_ID,
+     cc_view.`parent2_CODIGO` AS cc_view_parent2_CODIGO,
+     cc_view.`parent2_ISLEAF` AS cc_view_parent2_ISLEAF,
+     cc_view.`parent2_NOMBRE` AS cc_view_parent2_NOMBRE,
+     cc_view.`parent2_LEVEL` AS cc_view_parent2_LEVEL,
+     cc_view.`det_ID` AS cc_view_det_ID,
+     cc_view.`det_CODIGO` AS cc_view_det_CODIGO,
+     cc_view.`det_ISLEAF` AS cc_view_det_ISLEAF,
+     cc_view.`det_NOMBRE` AS cc_view_det_NOMBRE,
+     cc_view.`det_LEVEL` AS cc_view_det_LEVEL,
+     cuenta.`ISCAJA` AS cuenta_ISCAJA
+FROM
+     `operacion` operacion INNER JOIN `cuenta` cuenta ON operacion.`cuenta_ID` = cuenta.`ID`
+     RIGHT OUTER JOIN `cc_view` cc_view ON operacion.`centrocosto_ID` = cc_view.`id`
+WHERE
+     cc_view.`parent0_cuenta` IS null
+     and operacion.`operacionDETALLE_ID` IS null
+     and cuenta.`ISCAJA` = 0
+     and operacion.`FECHA` BETWEEN $P{str_fecha_min} and $P{str_fecha_max}
+ORDER BY
+     cc_view_parent0_ID ASC,
+     cc_view_parent1_ID ASC,
+     cc_view_parent2_ID ASC,
+     cc_view_det_ID ASC]]>
+	</queryString>
+	<field name="operacion_ID" class="java.lang.Long"/>
+	<field name="operacion_FECHA" class="java.sql.Timestamp"/>
+	<field name="operacion_ISCARGO" class="java.lang.Boolean"/>
+	<field name="operacion_ISPEN" class="java.lang.Boolean"/>
+	<field name="operacion_PEN" class="java.math.BigDecimal"/>
+	<field name="operacion_USD" class="java.math.BigDecimal"/>
+	<field name="operacion_centrocosto_ID" class="java.lang.Long"/>
+	<field name="operacion_ISCORRECTION" class="java.lang.Boolean"/>
+	<field name="operacion_cuenta_ID" class="java.lang.Long"/>
+	<field name="operacion_operacionCORRECTED_ID" class="java.lang.Long"/>
+	<field name="operacion_operacionDETALLE_ID" class="java.lang.Long"/>
+	<field name="cuenta_ID" class="java.lang.Long"/>
+	<field name="cuenta_NOMBRE" class="java.lang.String"/>
+	<field name="cuenta_NUMERO" class="java.lang.Long"/>
+	<field name="cc_view_id" class="java.lang.Long"/>
+	<field name="cc_view_parent0_ID" class="java.lang.Long"/>
+	<field name="cc_view_parent0_CODIGO" class="java.lang.String"/>
+	<field name="cc_view_parent0_ISLEAF" class="java.lang.Integer"/>
+	<field name="cc_view_parent0_NOMBRE" class="java.lang.String"/>
+	<field name="cc_view_parent0_LEVEL" class="java.lang.Integer"/>
+	<field name="cc_view_parent0_cuenta" class="java.lang.Long"/>
+	<field name="cc_view_parent1_ID" class="java.lang.Long"/>
+	<field name="cc_view_parent1_CODIGO" class="java.lang.String"/>
+	<field name="cc_view_parent1_ISLEAF" class="java.lang.Integer"/>
+	<field name="cc_view_parent1_NOMBRE" class="java.lang.String"/>
+	<field name="cc_view_parent1_LEVEL" class="java.lang.Integer"/>
+	<field name="cc_view_parent2_ID" class="java.lang.Long"/>
+	<field name="cc_view_parent2_CODIGO" class="java.lang.String"/>
+	<field name="cc_view_parent2_ISLEAF" class="java.lang.Integer"/>
+	<field name="cc_view_parent2_NOMBRE" class="java.lang.String"/>
+	<field name="cc_view_parent2_LEVEL" class="java.lang.Integer"/>
+	<field name="cc_view_det_ID" class="java.lang.Long"/>
+	<field name="cc_view_det_CODIGO" class="java.lang.String"/>
+	<field name="cc_view_det_ISLEAF" class="java.lang.Integer"/>
+	<field name="cc_view_det_NOMBRE" class="java.lang.String"/>
+	<field name="cc_view_det_LEVEL" class="java.lang.Integer"/>
+	<field name="cuenta_ISCAJA" class="java.lang.Boolean"/>
+	<variable name="sum_det_in" class="java.math.BigDecimal" resetType="Group" resetGroup="Detail" calculation="Sum">
+		<variableExpression><![CDATA[$F{operacion_ISCARGO}?(new java.math.BigDecimal(0)):($P{in_isPen}?($F{operacion_ISPEN}?$F{operacion_PEN}:(new java.math.BigDecimal(0))):($F{operacion_ISPEN}?(new java.math.BigDecimal(0)):$F{operacion_USD}))]]></variableExpression>
+	</variable>
+	<variable name="sum_par2_in" class="java.math.BigDecimal" resetType="Group" resetGroup="Parent2" calculation="Sum">
+		<variableExpression><![CDATA[$F{operacion_ISCARGO}?(new java.math.BigDecimal(0)):($P{in_isPen}?($F{operacion_ISPEN}?$F{operacion_PEN}:(new java.math.BigDecimal(0))):($F{operacion_ISPEN}?(new java.math.BigDecimal(0)):$F{operacion_USD}))]]></variableExpression>
+	</variable>
+	<variable name="sum_par1_in" class="java.math.BigDecimal" resetType="Group" resetGroup="Parent1" calculation="Sum">
+		<variableExpression><![CDATA[$F{operacion_ISCARGO}?(new java.math.BigDecimal(0)):($P{in_isPen}?($F{operacion_ISPEN}?$F{operacion_PEN}:(new java.math.BigDecimal(0))):($F{operacion_ISPEN}?(new java.math.BigDecimal(0)):$F{operacion_USD}))]]></variableExpression>
+	</variable>
+	<variable name="sum_par0_in" class="java.math.BigDecimal" resetType="Group" resetGroup="Parent0" calculation="Sum">
+		<variableExpression><![CDATA[$F{operacion_ISCARGO}?(new java.math.BigDecimal(0)):($P{in_isPen}?($F{operacion_ISPEN}?$F{operacion_PEN}:(new java.math.BigDecimal(0))):($F{operacion_ISPEN}?(new java.math.BigDecimal(0)):$F{operacion_USD}))]]></variableExpression>
+	</variable>
+	<variable name="sum_det_out" class="java.math.BigDecimal" resetType="Group" resetGroup="Detail" calculation="Sum">
+		<variableExpression><![CDATA[$F{operacion_ISCARGO}?($P{in_isPen}?($F{operacion_ISPEN}?$F{operacion_PEN}:(new java.math.BigDecimal(0))):($F{operacion_ISPEN}?(new java.math.BigDecimal(0)):$F{operacion_USD})):(new java.math.BigDecimal(0))]]></variableExpression>
+	</variable>
+	<variable name="sum_par2_out" class="java.math.BigDecimal" resetType="Group" resetGroup="Parent2" calculation="Sum">
+		<variableExpression><![CDATA[$F{operacion_ISCARGO}?($P{in_isPen}?($F{operacion_ISPEN}?$F{operacion_PEN}:(new java.math.BigDecimal(0))):($F{operacion_ISPEN}?(new java.math.BigDecimal(0)):$F{operacion_USD})):(new java.math.BigDecimal(0))]]></variableExpression>
+	</variable>
+	<variable name="sum_par1_out" class="java.math.BigDecimal" resetType="Group" resetGroup="Parent1" calculation="Sum">
+		<variableExpression><![CDATA[$F{operacion_ISCARGO}?($P{in_isPen}?($F{operacion_ISPEN}?$F{operacion_PEN}:(new java.math.BigDecimal(0))):($F{operacion_ISPEN}?(new java.math.BigDecimal(0)):$F{operacion_USD})):(new java.math.BigDecimal(0))]]></variableExpression>
+	</variable>
+	<variable name="sum_par0_out" class="java.math.BigDecimal" resetType="Group" resetGroup="Parent0" calculation="Sum">
+		<variableExpression><![CDATA[$F{operacion_ISCARGO}?($P{in_isPen}?($F{operacion_ISPEN}?$F{operacion_PEN}:(new java.math.BigDecimal(0))):($F{operacion_ISPEN}?(new java.math.BigDecimal(0)):$F{operacion_USD})):(new java.math.BigDecimal(0))]]></variableExpression>
+	</variable>
+	<group name="Parent0">
+		<groupExpression><![CDATA[$F{cc_view_parent0_CODIGO}]]></groupExpression>
+		<groupHeader>
+			<band height="21">
+				<printWhenExpression><![CDATA[!$F{cc_view_parent0_ID}.equals(null)]]></printWhenExpression>
+				<textField>
+					<reportElement uuid="b0c1b44f-4daf-4be9-9c17-bdef49134907" x="2" y="0" width="67" height="21" forecolor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cc_view_parent0_ID}]]></textFieldExpression>
+				</textField>
+				<textField hyperlinkTarget="Blank">
+					<reportElement uuid="e213c0a4-48d3-4ddc-a7a3-e78c15a86d4b" x="75" y="0" width="315" height="21" forecolor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cc_view_parent0_NOMBRE}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="f482b8d7-71a6-45d1-883e-b5bd174ae186" positionType="FixRelativeToBottom" x="2" y="20" width="569" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineColor="#999999"/>
+					</graphicElement>
+				</line>
+				<textField>
+					<reportElement uuid="79afee1e-a22a-4769-8094-afb2a7ae4a1c" x="410" y="1" width="78" height="20"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$P{in_isPen}?("Ingresos s/."):("Ingresos \$")]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="7a5a0b35-1907-4595-8eeb-853445e666d5" x="488" y="1" width="77" height="20"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$P{in_isPen}?("Egresos s/."):("Egresos \$")]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="1c8f86b1-e5f6-4661-b18a-7f3a6bda7493" positionType="FixRelativeToBottom" x="2" y="-1" width="569" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineColor="#999999"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="36">
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement uuid="6ad890e6-f92a-43f1-8cd9-b1562b9ceb11" x="416" y="1" width="66" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Top">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sum_par0_in}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="684a63c4-c4f1-4c85-88e6-93674ec7a641" x="357" y="1" width="56" height="20"/>
+					<textElement textAlignment="Center">
+						<font size="13" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Total: "]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement uuid="dce35ff3-24c8-44bf-aa13-0592af57e255" x="489" y="1" width="66" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Top">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sum_par0_out}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Parent1">
+		<groupExpression><![CDATA[$F{cc_view_parent1_CODIGO}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="21">
+				<printWhenExpression><![CDATA[!$F{cc_view_parent1_ID}.equals(null)]]></printWhenExpression>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement uuid="cc5c266b-1a40-4afd-9d36-3c88388276a6" x="416" y="0" width="66" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sum_par1_in}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="c3d96be4-82b5-4382-a272-8b3da60a84cf" x="59" y="0" width="357" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cc_view_parent1_NOMBRE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="c28469f9-f63d-4243-bcc2-f565de9344b6" x="4" y="0" width="48" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cc_view_parent1_ID}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement uuid="2968efde-94b2-41d2-bd9c-9e101e14211b" x="489" y="0" width="66" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sum_par1_out}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="c408db73-541d-4fe7-a93b-698b5f2b4a43" positionType="FixRelativeToBottom" x="4" y="20" width="569" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineColor="#999999"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Parent2">
+		<groupExpression><![CDATA[$F{cc_view_parent2_CODIGO}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="15">
+				<printWhenExpression><![CDATA[!$F{cc_view_parent2_NOMBRE}.equals(null)]]></printWhenExpression>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement uuid="4270e9e1-a2e7-4656-8630-a0535342358f" x="416" y="0" width="66" height="14"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sum_par2_in}]]></textFieldExpression>
+				</textField>
+				<textField hyperlinkType="ReportExecution" hyperlinkTarget="Blank">
+					<reportElement uuid="b52df32a-9f4d-4160-bd03-7509ca1184d4" x="61" y="0" width="43" height="14"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cc_view_parent2_ID}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="809315f6-4b24-45aa-9723-87aeb09fe4d7" x="108" y="0" width="304" height="14"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cc_view_parent2_NOMBRE}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement uuid="e2a7026d-ec03-4a6c-8900-968c5d2f7e43" x="489" y="0" width="66" height="14"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sum_par2_out}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="177fefa0-7bf3-4c84-925b-d8504a43fa16" positionType="FixRelativeToBottom" x="61" y="14" width="512" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineColor="#999999"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Detail">
+		<groupExpression><![CDATA[$F{cc_view_det_CODIGO}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="14">
+				<printWhenExpression><![CDATA[!$F{cc_view_det_ID}.equals(null)]]></printWhenExpression>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement uuid="e453b2fa-eb24-4eb0-bfa0-e357865d7178" x="266" y="0" width="51" height="14"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sum_det_in}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="1de0b15d-e6c9-4dd7-8109-54ac17af451c" x="155" y="0" width="109" height="14"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cc_view_det_NOMBRE}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement uuid="353fac83-2092-44e7-8f20-96627a45fc36" x="322" y="0" width="47" height="14" backcolor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sum_det_out}]]></textFieldExpression>
+				</textField>
+				<textField hyperlinkTarget="Blank">
+					<reportElement uuid="3ca470f4-c86d-425a-9934-73c25dc2c182" x="108" y="0" width="45" height="14"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{cc_view_det_CODIGO}]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA["See details"]]></hyperlinkTooltipExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<title>
+		<band height="71">
+			<textField hyperlinkType="ReportExecution" hyperlinkTarget="Blank">
+				<reportElement uuid="ccc97afb-2065-44b3-b4e4-d1368f200784" x="0" y="1" width="573" height="39"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Reporte por centro de costos"]]></textFieldExpression>
+				<hyperlinkParameter name="_report">
+					<hyperlinkParameterExpression><![CDATA["Reports/ReporteCentroDeCostosStructure"]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+			</textField>
+			<textField>
+				<reportElement uuid="65bb1617-e476-4a2f-ae29-257e9cdb8a22" x="166" y="40" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{str_fecha_min}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="de2b8049-e6dc-462a-9495-c88a52eb33e0" x="290" y="40" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{str_fecha_max}]]></textFieldExpression>
+			</textField>
+			<textField hyperlinkType="ReportExecution" bookmarkLevel="1">
+				<reportElement uuid="87b88e34-b261-4b0b-abf9-0dd31476a07c" x="413" y="40" width="152" height="20"/>
+				<textElement textAlignment="Center">
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Estructura de cuentas - LINK"]]></textFieldExpression>
+				<anchorNameExpression><![CDATA["link"]]></anchorNameExpression>
+				<hyperlinkTooltipExpression><![CDATA["Centro de costo - general"]]></hyperlinkTooltipExpression>
+				<hyperlinkParameter name="_report">
+					<hyperlinkParameterExpression><![CDATA[$P{SUBREPORT_DIR}+"ReporteCentroDeCostosStructure.jasper"]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="20">
+			<printWhenExpression><![CDATA[!$F{operacion_ID}.equals(null)]]></printWhenExpression>
+			<textField>
+				<reportElement uuid="ac6994f4-5251-4ace-bee3-d6ac43773b34" x="249" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{operacion_ISPEN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8b931b4f-a0a2-4ecd-babf-4f1b67b6fdc5" x="357" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{operacion_ISPEN}?$F{operacion_PEN}:$F{operacion_USD}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

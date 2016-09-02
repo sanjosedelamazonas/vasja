@@ -1,0 +1,113 @@
+Manifest-Version: 1.0
+Build-Jdk: 1.6.0_24
+Built-By: michaelzachariassenkrog
+Created-By: Apache Maven
+Archiver-Version: Plexus Archiver
+
+Name: dk/apaq/vaadin/addon/printapplet/PrintApplet.class
+SHA1-Digest: sznxjzWkd47THmSg7itRiMVVLC0=
+
+Name: org/vaadin/applet/AppletIntegration.class
+SHA1-Digest: X6vdowlE4oVmgbJKvIGIzalqfg0=
+
+Name: org/vaadin/applet/AbstractVaadinApplet$JSCallThread.class
+SHA1-Digest: tqifkN1fmzvip14hMdIotdCpT/E=
+
+Name: org/vaadin/applet/sample/AppletIntegrationSampleApplication.java
+SHA1-Digest: ESpww1mxygmwwlrMkWfk/PitMzQ=
+
+Name: org/vaadin/applet/AbstractVaadinApplet.java
+SHA1-Digest: ZzccI0CvIxfgkMiWNGT9C5AdZEg=
+
+Name: org/json/simple/parser/JSONParser.class
+SHA1-Digest: VUBWxg+U7iSZCsr0oCK80p+/Lyc=
+
+Name: dk/apaq/vaadin/addon/printapplet/PrintApplet$1.class
+SHA1-Digest: nQvOb93sr76DLKzjVwjT4afuy6s=
+
+Name: org/json/simple/parser/ContentHandler.class
+SHA1-Digest: 1HuC7GhAUvkzqdWI6NDOX6BSNwk=
+
+Name: org/json/simple/ItemList.class
+SHA1-Digest: YIChvNHP+OtiZF2B15SWCcBrFHQ=
+
+Name: org/vaadin/applet/sample/AppletIntegrationSampleApplication.clas
+ s
+SHA1-Digest: 6rL//8OtyDNmL6vm+8vWEI5Wwas=
+
+Name: dk/apaq/vaadin/addon/printapplet/Printer.class
+SHA1-Digest: HbmY1iX5yNJwZRNxrO37jR9234s=
+
+Name: org/json/simple/JSONArray.class
+SHA1-Digest: qx4pTmetFfLwdURbcqtWsk+bnSM=
+
+Name: org/vaadin/applet/AppletIntegration.java
+SHA1-Digest: Zjcv73D0Vymhcu5qNHWh4FHe91s=
+
+Name: org/json/simple/parser/Yylex.class
+SHA1-Digest: twP5qa+eBVdo0T5o/RSAkI+EPBs=
+
+Name: org/json/simple/parser/Yytoken.class
+SHA1-Digest: ag2aXrQ8qk5ViPqbHO4R8PGmPNs=
+
+Name: dk/apaq/vaadin/addon/printapplet/BundlePrinter$CloseIgnoringInpu
+ tStream.class
+SHA1-Digest: U1faT+9UNr69OjXdUAcQAYvrwao=
+
+Name: org/json/simple/parser/ParseException.class
+SHA1-Digest: Tpa3ia7IewgAihQrmABC8C+PfKY=
+
+Name: org/vaadin/applet/AbstractVaadinApplet.class
+SHA1-Digest: QBM8Xa8Im43rwbyKzBBb5cRtlbo=
+
+Name: META-INF/maven/dk.apaq.vaadin.addon/printapplet/pom.xml
+SHA1-Digest: 2oGfFexIM05xoRKf5knaetYsblw=
+
+Name: dk/apaq/vaadin/addon/printapplet/PrintAction.class
+SHA1-Digest: LCbCU6la495ka58/Gup4RBcBVBU=
+
+Name: org/vaadin/applet/AppletintegrationWidgetset.gwt.xml
+SHA1-Digest: Q1l1Zwa1UNGx8oOsMSQ2VlWlhX4=
+
+Name: org/json/simple/JSONValue.class
+SHA1-Digest: 2KyJh+Oe5esT0NWLyxhCulKqazg=
+
+Name: org/vaadin/applet/client/ui/VAppletIntegration.java
+SHA1-Digest: Yci3Mofzx7xBySfm2PxNyMcebwc=
+
+Name: org/json/simple/JSONStreamAware.class
+SHA1-Digest: qXvv8B+umxeUbpndIp2JLu63y3s=
+
+Name: dk/apaq/vaadin/addon/printapplet/ImagePrintable.class
+SHA1-Digest: YjGzeqZBpl1YquYsaNMoAyRgYc4=
+
+Name: dk/apaq/vaadin/addon/printapplet/Base64Coder.class
+SHA1-Digest: ResBRCVNKN2gEUxCAkw6GvmcRro=
+
+Name: org/json/simple/parser/ContainerFactory.class
+SHA1-Digest: 1D93mcw4ZmZcXg5FZwE1e/I+TBE=
+
+Name: dk/apaq/vaadin/addon/printapplet/PrintApplet$2.class
+SHA1-Digest: umnnooJ9wbapDJ9Mr59kq6HW/B4=
+
+Name: org/json/simple/JSONAware.class
+SHA1-Digest: Ri40fZ0+OgqQnruyXsHAlkhxEw8=
+
+Name: META-INF/maven/dk.apaq.vaadin.addon/printapplet/pom.properties
+SHA1-Digest: OKFlp8Bct4C29d9ix5hlrJfg+0Q=
+
+Name: org/vaadin/applet/client/ui/VAppletIntegration.class
+SHA1-Digest: nRae5t9yUUBNxbLClXBFjU8uBsY=
+
+Name: dk/apaq/vaadin/addon/printapplet/BundlePrinter.class
+SHA1-Digest: zwDVb3Cqr6lfwZQ/2FijKnF2LCY=
+
+Name: org/json/simple/JSONObject.class
+SHA1-Digest: aBVLhbiQsxbd2bErGWzWmWCkXNc=
+
+Name: dk/apaq/vaadin/addon/printapplet/SvgPrintable.class
+SHA1-Digest: lbfVVNdUTPNCcicqvNo9GXFLuZA=
+
+Name: org/vaadin/applet/AbstractVaadinApplet$JsPollerThread.class
+SHA1-Digest: sWw9YwhsWUyuXgaJ9wAv6N3sHVs=
+

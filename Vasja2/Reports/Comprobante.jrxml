@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Comprobante" language="groovy" pageWidth="595" pageHeight="421" orientation="Landscape" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="48">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="OP_ID" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[201]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[(SELECT
+     operacion.`CHEQUENUMERO` AS operacion_CHEQUE_NUMERO,
+     operacion.`DESCRIPCION` AS operacion_DESCRIPCION,
+     operacion.`DNI` AS operacion_DNI,
+     operacion.`FECHA` AS operacion_FECHA,
+     operacion.`FIRMA` AS operacion_FIRMA,
+     operacion.`PEN` AS operacion_PEN,
+     operacion.`ISCARGO` AS operacion_ISCARGO,
+     operacion.`SALDOPEN` AS operacion_SALDOPEN,
+     operacion.`SALDOUSD` AS operacion_SALDOUSD,
+     operacion.`TIPO` AS operacion_TIPO,
+     operacion.`USD` AS operacion_USD,
+     operacion.`cuenta_ID` AS operacion_cuenta_ID,
+     operacion.`usuario_ID` AS operacion_usuario_ID,
+     operacion.`ID` AS operacion_ID,
+     operacion.`ISPEN` AS operacion_ISPEN,
+     operacion.`banco_ID` AS operacion_banco_ID,
+	cuenta.`NOMBRE` AS cuenta_NOMBRE,
+	cuenta.`NUMERO` AS cuenta_NUMERO,
+	banco.`NOMBRE` AS banco_NOMBRE,
+	usuario.`usuario` AS usuario
+FROM
+     `operacion` operacion
+LEFT JOIN `usuario` ON `operacion`.usuario_ID = usuario.ID
+LEFT JOIN `cuenta` ON `operacion`.cuenta_ID = cuenta.ID
+LEFT JOIN `banco` ON `operacion`.banco_ID = banco.ID
+WHERE operacion.ID = $P{OP_ID})
+UNION ALL
+(SELECT
+     operacion.`CHEQUENUMERO` AS operacion_CHEQUE_NUMERO,
+     operacion.`DESCRIPCION` AS operacion_DESCRIPCION,
+     operacion.`DNI` AS operacion_DNI,
+     operacion.`FECHA` AS operacion_FECHA,
+     operacion.`FIRMA` AS operacion_FIRMA,
+     operacion.`PEN` AS operacion_PEN,
+     operacion.`ISCARGO` AS operacion_ISCARGO,
+     operacion.`SALDOPEN` AS operacion_SALDOPEN,
+     operacion.`SALDOUSD` AS operacion_SALDOUSD,
+     operacion.`TIPO` AS operacion_TIPO,
+     operacion.`USD` AS operacion_USD,
+     operacion.`cuenta_ID` AS operacion_cuenta_ID,
+     operacion.`usuario_ID` AS operacion_usuario_ID,
+     operacion.`ID` AS operacion_ID,
+     operacion.`ISPEN` AS operacion_ISPEN,
+     operacion.`banco_ID` AS operacion_banco_ID,
+	cuenta.`NOMBRE` AS cuenta_NOMBRE,
+	cuenta.`NUMERO` AS cuenta_NUMERO,
+	banco.`NOMBRE` AS banco_NOMBRE,
+	usuario.`usuario` AS usuario
+FROM
+     `operacion` operacion
+LEFT JOIN `usuario` ON `operacion`.usuario_ID = usuario.ID
+LEFT JOIN `cuenta` ON `operacion`.cuenta_ID = cuenta.ID
+LEFT JOIN `banco` ON `operacion`.banco_ID = banco.ID
+WHERE operacion.ID = $P{OP_ID})]]>
+	</queryString>
+	<field name="operacion_CHEQUE_NUMERO" class="java.lang.String"/>
+	<field name="operacion_DESCRIPCION" class="java.lang.String"/>
+	<field name="operacion_DNI" class="java.lang.String"/>
+	<field name="operacion_FECHA" class="java.sql.Timestamp"/>
+	<field name="operacion_FIRMA" class="java.lang.String"/>
+	<field name="operacion_PEN" class="java.math.BigDecimal"/>
+	<field name="operacion_ISCARGO" class="java.lang.Boolean"/>
+	<field name="operacion_SALDOPEN" class="java.math.BigDecimal"/>
+	<field name="operacion_SALDOUSD" class="java.math.BigDecimal"/>
+	<field name="operacion_TIPO" class="java.lang.String"/>
+	<field name="operacion_USD" class="java.math.BigDecimal"/>
+	<field name="operacion_cuenta_ID" class="java.lang.Long"/>
+	<field name="operacion_usuario_ID" class="java.lang.Long"/>
+	<field name="operacion_ID" class="java.lang.Long"/>
+	<field name="operacion_ISPEN" class="java.lang.Boolean"/>
+	<field name="cuenta_NUMERO" class="java.lang.Long"/>
+	<field name="cuenta_NOMBRE" class="java.lang.String"/>
+	<field name="usuario" class="java.lang.String"/>
+	<field name="banco_NOMBRE" class="java.lang.String"/>
+	<variable name="operacion_ID" class="java.lang.Long">
+		<variableExpression><![CDATA[]]></variableExpression>
+		<initialValueExpression><![CDATA[201]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="274" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="108" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="117" y="140" width="438" height="34"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{operacion_DESCRIPCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="223" y="232" width="85" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{operacion_DNI}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy.MM.dd" isBlankWhenNull="true">
+				<reportElement style="Detail" x="413" y="70" width="142" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{operacion_FECHA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="63" y="232" width="121" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{operacion_FIRMA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="413" y="88" width="79" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[($F{operacion_ISPEN} ? $F{operacion_PEN} : $F{operacion_USD})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="51" y="181" width="154" height="17"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{operacion_TIPO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="117" y="113" width="58" height="19"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cuenta_NUMERO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="175" y="113" width="58" height="19"/>
+				<textElement/>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Detail" x="233" y="113" width="322" height="19"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cuenta_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="0" y="113" width="117" height="19"/>
+				<textElement/>
+				<text><![CDATA[NUMERO cuenta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="140" width="99" height="17"/>
+				<textElement/>
+				<text><![CDATA[DESCRIPCION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="232" width="63" height="15"/>
+				<textElement/>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="184" y="232" width="39" height="15"/>
+				<textElement/>
+				<text><![CDATA[DNI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="181" width="51" height="17"/>
+				<textElement/>
+				<text><![CDATA[TIPO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="357" y="70" width="56" height="15"/>
+				<textElement/>
+				<text><![CDATA[FECHA]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Column header" x="357" y="88" width="39" height="15"/>
+				<textElement markup="none"/>
+				<textFieldExpression><![CDATA[($F{operacion_ISPEN} ? "PEN" : "USD")]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="217" y="181" width="134" height="17" forecolor="#666666" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{operacion_TIPO}.toString().equals("CHEQUE") ? "NUMERO" : ($F{operacion_TIPO}.toString().equals("TRANSFERENCIA") ? "NUMERO" : ""))]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="362" y="181" width="193" height="17" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{operacion_CHEQUE_NUMERO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="308" y="232" width="49" height="15"/>
+				<textElement/>
+				<text><![CDATA[FIRMA]]></text>
+			</staticText>
+			<line>
+				<reportElement x="357" y="247" width="198" height="1"/>
+			</line>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="272" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="228" y="257" width="80" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{operacion_SALDOPEN}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="0" y="257" width="223" height="15"/>
+				<textElement/>
+				<text><![CDATA[Saldo despues de la operacion   PEN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="318" y="257" width="39" height="15"/>
+				<textElement/>
+				<text><![CDATA[USD]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement style="Detail" x="362" y="257" width="91" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{operacion_SALDOUSD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Column header" x="0" y="208" width="63" height="15"/>
+				<textElement markup="none"/>
+				<textFieldExpression><![CDATA[($F{operacion_TIPO}.toString().equals("TRANSFERENCIA") ? "banco" : "")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="75" y="208" width="276" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{banco_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Title" x="17" y="0" width="257" height="51"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Vicariato Apostolico
+De San Jose Del Amazonas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="17" y="51" width="206" height="31"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Comprobante de Caja]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="223" y="51" width="52" height="31" forecolor="#666666" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="18" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{OP_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="SubTitle" x="318" y="11" width="206" height="59"/>
+				<textElement textAlignment="Center" markup="none">
+					<font size="44"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{operacion_ISCARGO} ? "CARGO" : "ABONO")]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField pattern="yyyy.MM.dd HH:mm" isBlankWhenNull="false">
+				<reportElement style="Column header" x="17" y="0" width="275" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="335" y="0" width="56" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Usuario]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Detail" x="391" y="0" width="68" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

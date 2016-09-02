@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteCentroDeCostos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="573" leftMargin="11" rightMargin="11" topMargin="11" bottomMargin="11">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="7"/>
+	<property name="ireport.y" value="30"/>
+	<parameter name="str_fecha_min" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="str_fecha_max" class="java.lang.String">
+		<defaultValueExpression><![CDATA[new Date()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="in_isPen" class="java.lang.Boolean">
+		<defaultValueExpression><![CDATA[true]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     operacion.`ID` AS operacion_ID,
+     operacion.`FECHA` AS operacion_FECHA,
+     operacion.`ISCARGO` AS operacion_ISCARGO,
+     operacion.`ISPEN` AS operacion_ISPEN,
+     operacion.`PEN` AS operacion_PEN,
+     operacion.`USD` AS operacion_USD,
+     operacion.`centrocosto_ID` AS operacion_centrocosto_ID,
+     operacion.`ISCORRECTION` AS operacion_ISCORRECTION,
+     operacion.`cuenta_ID` AS operacion_cuenta_ID,
+     operacion.`operacionCORRECTED_ID` AS operacion_operacionCORRECTED_ID,
+     operacion.`operacionDETALLE_ID` AS operacion_operacionDETALLE_ID,
+     cuenta.`ID` AS cuenta_ID,
+     cuenta.`NOMBRE` AS cuenta_NOMBRE,
+     cuenta.`NUMERO` AS cuenta_NUMERO,
+     cc_view.`id` AS cc_view_id,
+     cc_view.`parent0_ID` AS cc_view_parent0_ID,
+     cc_view.`parent0_CODIGO` AS cc_view_parent0_CODIGO,
+     cc_view.`parent0_ISLEAF` AS cc_view_parent0_ISLEAF,
+     cc_view.`parent0_NOMBRE` AS cc_view_parent0_NOMBRE,
+     cc_view.`parent0_LEVEL` AS cc_view_parent0_LEVEL,
+     cc_view.`parent0_cuenta` AS cc_view_parent0_cuenta,
+     cc_view.`parent1_ID` AS cc_view_parent1_ID,
+     cc_view.`parent1_CODIGO` AS cc_view_parent1_CODIGO,
+     cc_view.`parent1_ISLEAF` AS cc_view_parent1_ISLEAF,
+     cc_view.`parent1_NOMBRE` AS cc_view_parent1_NOMBRE,
+     cc_view.`parent1_LEVEL` AS cc_view_parent1_LEVEL,
+     cc_view.`parent2_ID` AS cc_view_parent2_ID,
+     cc_view.`parent2_CODIGO` AS cc_view_parent2_CODIGO,
+     cc_view.`parent2_ISLEAF` AS cc_view_parent2_ISLEAF,
+     cc_view.`parent2_NOMBRE` AS cc_view_parent2_NOMBRE,
+     cc_view.`parent2_LEVEL` AS cc_view_parent2_LEVEL,
+     cc_view.`det_ID` AS cc_view_det_ID,
+     cc_view.`det_CODIGO` AS cc_view_det_CODIGO,
+     cc_view.`det_ISLEAF` AS cc_view_det_ISLEAF,
+     cc_view.`det_NOMBRE` AS cc_view_det_NOMBRE,
+     cc_view.`det_LEVEL` AS cc_view_det_LEVEL,
+     categoriacuenta.`ID` AS categoriacuenta_ID,
+     categoriacuenta.`DESCRIPCION` AS categoriacuenta_DESCRIPCION,
+     categoriacuenta.`NOMBRE` AS categoriacuenta_NOMBRE,
+     categoriacuenta.`bancoPEN_ID` AS categoriacuenta_bancoPEN_ID,
+     categoriacuenta.`bancoUSD_ID` AS categoriacuenta_bancoUSD_ID,
+     categoriacuenta.`CAJAcuenta_ID` AS categoriacuenta_CAJAcuenta_ID,
+     cuenta.`ISCAJA` AS cuenta_ISCAJA
+FROM
+     `operacion` operacion INNER JOIN `cuenta` cuenta ON operacion.`cuenta_ID` = cuenta.`ID`
+     RIGHT OUTER JOIN `cc_view` cc_view ON operacion.`centrocosto_ID` = cc_view.`id`
+     INNER JOIN `categoriacuenta` categoriacuenta ON cuenta.`categoriacuenta_ID` = categoriacuenta.`ID`
+WHERE
+     cc_view.`parent0_cuenta` IS null
+     and operacion.`operacionDETALLE_ID` IS null
+     and cuenta.`ISCAJA`=0
+     and operacion.`FECHA` BETWEEN $P{str_fecha_min} and $P{str_fecha_max}
+ORDER BY
+     categoriacuenta.`ID` ASC,
+     cuenta.`ID` ASC,
+     cc_view_parent0_ID ASC,
+     cc_view_parent1_ID ASC,
+     cc_view_parent2_ID ASC,
+     cc_view_det_ID ASC]]>
+	</queryString>
+	<field name="operacion_ID" class="java.lang.Long"/>
+	<field name="operacion_FECHA" class="java.sql.Timestamp"/>
+	<field name="operacion_ISCARGO" class="java.lang.Boolean"/>
+	<field name="operacion_ISPEN" class="java.lang.Boolean"/>
+	<field name="operacion_PEN" class="java.math.BigDecimal"/>
+	<field name="operacion_USD" class="java.math.BigDecimal"/>
+	<field name="operacion_centrocosto_ID" class="java.lang.Long"/>
+	<field name="operacion_ISCORRECTION" class="java.lang.Boolean"/>
+	<field name="operacion_cuenta_ID" class="java.lang.Long"/>
+	<field name="operacion_operacionCORRECTED_ID" class="java.lang.Long"/>
+	<field name="operacion_operacionDETALLE_ID" class="java.lang.Long"/>
+	<field name="cuenta_ID" class="java.lang.Long"/>
+	<field name="cuenta_NOMBRE" class="java.lang.String"/>
+	<field name="cuenta_NUMERO" class="java.lang.Long"/>
+	<field name="cc_view_id" class="java.lang.Long"/>
+	<field name="cc_view_parent0_ID" class="java.lang.Long"/>
+	<field name="cc_view_parent0_CODIGO" class="java.lang.String"/>
+	<field name="cc_view_parent0_ISLEAF" class="java.lang.Integer"/>
+	<field name="cc_view_parent0_NOMBRE" class="java.lang.String"/>
+	<field name="cc_view_parent0_LEVEL" class="java.lang.Integer"/>
+	<field name="cc_view_parent0_cuenta" class="java.lang.Long"/>
+	<field name="cc_view_parent1_ID" class="java.lang.Long"/>
+	<field name="cc_view_parent1_CODIGO" class="java.lang.String"/>
+	<field name="cc_view_parent1_ISLEAF" class="java.lang.Integer"/>
+	<field name="cc_view_parent1_NOMBRE" class="java.lang.String"/>
+	<field name="cc_view_parent1_LEVEL" class="java.lang.Integer"/>
+	<field name="cc_view_parent2_ID" class="java.lang.Long"/>
+	<field name="cc_view_parent2_CODIGO" class="java.lang.String"/>
+	<field name="cc_view_parent2_ISLEAF" class="java.lang.Integer"/>
+	<field name="cc_view_parent2_NOMBRE" class="java.lang.String"/>
+	<field name="cc_view_parent2_LEVEL" class="java.lang.Integer"/>
+	<field name="cc_view_det_ID" class="java.lang.Long"/>
+	<field name="cc_view_det_CODIGO" class="java.lang.String"/>
+	<field name="cc_view_det_ISLEAF" class="java.lang.Integer"/>
+	<field name="cc_view_det_NOMBRE" class="java.lang.String"/>
+	<field name="cc_view_det_LEVEL" class="java.lang.Integer"/>
+	<field name="categoriacuenta_ID" class="java.lang.Long"/>
+	<field name="categoriacuenta_DESCRIPCION" class="java.lang.String"/>
+	<field name="categoriacuenta_NOMBRE" class="java.lang.String"/>
+	<field name="categoriacuenta_bancoPEN_ID" class="java.lang.Long"/>
+	<field name="categoriacuenta_bancoUSD_ID" class="java.lang.Long"/>
+	<field name="categoriacuenta_CAJAcuenta_ID" class="java.lang.Long"/>
+	<field name="cuenta_ISCAJA" class="java.lang.Boolean"/>
+	<variable name="sum_det_in" class="java.math.BigDecimal" resetType="Group" resetGroup="Detail" calculation="Sum">
+		<variableExpression><![CDATA[$F{operacion_ISCARGO}?(new java.math.BigDecimal(0)):($P{in_isPen}?$F{operacion_PEN}:$F{operacion_USD})]]></variableExpression>
+	</variable>
+	<variable name="sum_par2_in" class="java.math.BigDecimal" resetType="Group" resetGroup="Parent2" calculation="Sum">
+		<variableExpression><![CDATA[$F{operacion_ISCARGO}?(new java.math.BigDecimal(0)):($P{in_isPen}?$F{operacion_PEN}:$F{operacion_USD})]]></variableExpression>
+	</variable>
+	<variable name="sum_par1_in" class="java.math.BigDecimal" resetType="Group" resetGroup="Parent1" calculation="Sum">
+		<variableExpression><![CDATA[$F{operacion_ISCARGO}?(new java.math.BigDecimal(0)):($P{in_isPen}?$F{operacion_PEN}:$F{operacion_USD})]]></variableExpression>
+	</variable>
+	<variable name="sum_par0_in" class="java.math.BigDecimal" resetType="Group" resetGroup="Parent0" calculation="Sum">
+		<variableExpression><![CDATA[$F{operacion_ISCARGO}?(new java.math.BigDecimal(0)):($P{in_isPen}?$F{operacion_PEN}:$F{operacion_USD})]]></variableExpression>
+	</variable>
+	<variable name="sum_det_out" class="java.math.BigDecimal" resetType="Group" resetGroup="Detail" calculation="Sum">
+		<variableExpression><![CDATA[$F{operacion_ISCARGO}?($P{in_isPen}?$F{operacion_PEN}:$F{operacion_USD}):(new java.math.BigDecimal(0))]]></variableExpression>
+	</variable>
+	<variable name="sum_par2_out" class="java.math.BigDecimal" resetType="Group" resetGroup="Parent2" calculation="Sum">
+		<variableExpression><![CDATA[($F{operacion_ISPEN}&$F{operacion_ISCARGO})?$F{operacion_PEN}:(new java.math.BigDecimal(0))]]></variableExpression>
+	</variable>
+	<variable name="sum_par1_out" class="java.math.BigDecimal" resetType="Group" resetGroup="Parent1" calculation="Sum">
+		<variableExpression><![CDATA[($F{operacion_ISPEN}&$F{operacion_ISCARGO})?$F{operacion_PEN}:(new java.math.BigDecimal(0))]]></variableExpression>
+	</variable>
+	<variable name="sum_par0_out" class="java.math.BigDecimal" resetType="Group" resetGroup="Parent0" calculation="Sum">
+		<variableExpression><![CDATA[($F{operacion_ISPEN}&$F{operacion_ISCARGO})?$F{operacion_PEN}:(new java.math.BigDecimal(0))]]></variableExpression>
+	</variable>
+	<group name="Cuenta" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{cuenta_ID}]]></groupExpression>
+		<groupHeader>
+			<band height="31">
+				<rectangle>
+					<reportElement mode="Opaque" x="2" y="0" width="40" height="30" forecolor="#CCCCCC" backcolor="#CCCCCC"/>
+				</rectangle>
+				<textField>
+					<reportElement x="48" y="0" width="54" height="30"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="16" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cuenta_NUMERO}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="115" y="0" width="426" height="30"/>
+					<textElement verticalAlignment="Middle">
+						<font size="16" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cuenta_NOMBRE}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Parent0">
+		<groupExpression><![CDATA[$F{cc_view_parent0_CODIGO}]]></groupExpression>
+		<groupHeader>
+			<band height="21">
+				<printWhenExpression><![CDATA[!$F{cc_view_parent0_ID}.equals(null)]]></printWhenExpression>
+				<textField>
+					<reportElement x="2" y="0" width="67" height="21" forecolor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cc_view_parent0_ID}]]></textFieldExpression>
+				</textField>
+				<textField hyperlinkTarget="Blank">
+					<reportElement x="75" y="0" width="315" height="21" forecolor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cc_view_parent0_NOMBRE}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement positionType="FixRelativeToBottom" x="2" y="20" width="569" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineColor="#999999"/>
+					</graphicElement>
+				</line>
+				<textField>
+					<reportElement x="410" y="1" width="78" height="20"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$P{in_isPen}?("Ingresos s/."):("Ingresos \$")]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="488" y="1" width="77" height="20"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$P{in_isPen}?("Egresos s/."):("Egresos \$")]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement positionType="FixRelativeToBottom" x="2" y="-1" width="569" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineColor="#999999"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="36">
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="416" y="1" width="66" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Top">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sum_par0_in}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="357" y="1" width="56" height="20"/>
+					<textElement textAlignment="Center">
+						<font size="13" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Total: "]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="489" y="1" width="66" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Top">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sum_par0_out}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Parent1">
+		<groupExpression><![CDATA[$F{cc_view_parent1_CODIGO}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="21">
+				<printWhenExpression><![CDATA[!$F{cc_view_parent1_ID}.equals(null)]]></printWhenExpression>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="416" y="0" width="66" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sum_par1_in}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="59" y="0" width="357" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cc_view_parent1_NOMBRE}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="4" y="0" width="48" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cc_view_parent1_ID}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="489" y="0" width="66" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sum_par1_out}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement positionType="FixRelativeToBottom" x="4" y="20" width="569" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineColor="#999999"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Parent2">
+		<groupExpression><![CDATA[$F{cc_view_parent2_CODIGO}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="15">
+				<printWhenExpression><![CDATA[!$F{cc_view_parent2_NOMBRE}.equals(null)]]></printWhenExpression>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="416" y="0" width="66" height="14"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sum_par2_in}]]></textFieldExpression>
+				</textField>
+				<textField hyperlinkType="ReportExecution" hyperlinkTarget="Blank">
+					<reportElement x="61" y="0" width="43" height="14"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cc_view_parent2_ID}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="108" y="0" width="304" height="14"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cc_view_parent2_NOMBRE}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="489" y="0" width="66" height="14"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sum_par2_out}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement positionType="FixRelativeToBottom" x="61" y="14" width="512" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineColor="#999999"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Detail">
+		<groupExpression><![CDATA[$F{cc_view_det_CODIGO}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="14">
+				<printWhenExpression><![CDATA[!$F{cc_view_det_ID}.equals(null)]]></printWhenExpression>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="266" y="0" width="51" height="14"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sum_det_in}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="155" y="0" width="109" height="14"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cc_view_det_NOMBRE}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="322" y="0" width="47" height="14" backcolor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sum_det_out}]]></textFieldExpression>
+				</textField>
+				<textField hyperlinkTarget="Blank">
+					<reportElement x="108" y="0" width="45" height="14"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{cc_view_det_CODIGO}]]></textFieldExpression>
+					<hyperlinkTooltipExpression><![CDATA["See details"]]></hyperlinkTooltipExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<title>
+		<band height="71">
+			<textField hyperlinkType="ReportExecution" hyperlinkTarget="Blank">
+				<reportElement x="0" y="1" width="573" height="39"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Reporte por centro de costos"]]></textFieldExpression>
+				<hyperlinkParameter name="_report">
+					<hyperlinkParameterExpression><![CDATA["Reports/ReporteCentroDeCostosStructure"]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+			</textField>
+			<textField>
+				<reportElement x="166" y="40" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{str_fecha_min}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="40" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{str_fecha_max}]]></textFieldExpression>
+			</textField>
+			<textField hyperlinkType="ReportExecution" bookmarkLevel="1">
+				<reportElement x="455" y="40" width="110" height="20"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Estructura de cuentas"]]></textFieldExpression>
+				<hyperlinkParameter name="_report">
+					<hyperlinkParameterExpression><![CDATA["reports/ReporteCentroDeCostosStructure"]]></hyperlinkParameterExpression>
+				</hyperlinkParameter>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band>
+			<printWhenExpression><![CDATA[!$F{operacion_ID}.equals(null)]]></printWhenExpression>
+		</band>
+	</detail>
+</jasperReport>
