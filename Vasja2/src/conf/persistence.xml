@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+  <persistence-unit name="VasjaEJBPU-nonJTA" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <non-jta-data-source>jdbc/vasja_caja_informe</non-jta-data-source>
+    <class>org.sanjose.model.Usuario</class>
+    <class>org.sanjose.model.TipoDocumento</class>
+    <class>org.sanjose.model.Saldo</class>
+    <class>org.sanjose.model.Role</class>
+    <class>org.sanjose.model.Propietario</class>
+    <class>org.sanjose.model.Propiedad</class>
+    <class>org.sanjose.model.Operacion</class>
+    <class>org.sanjose.model.MesCerrado</class>
+    <class>org.sanjose.model.LugarGasto</class>
+    <class>org.sanjose.model.Cuenta</class>
+    <class>org.sanjose.model.CentroCosto</class>
+    <class>org.sanjose.model.CategoriaCuenta</class>
+    <class>org.sanjose.model.Beneficiario</class>
+    <class>org.sanjose.model.Banco</class>
+    <class>org.sanjose.model.CuentaContable</class>
+    <class>org.sanjose.model.RubroInstitucional</class>
+    <class>org.sanjose.model.RubroProyecto</class>
+    <!--	<non-jta-data-source>Vasja_DB</non-jta-data-source> 
+    	<non-jta-data-source>Vasja_Local_DB</non-jta-data-source> -->
+    <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+    <validation-mode>NONE</validation-mode>
+    <properties>
+      <property name="eclipselink.target-database" value="MySQL"/>
+      <!--  		<property name="javax.persistence.nonJtaDataSource" value="Vasja_Caja_DB"/>
+    		<property name="javax.persistence.nonJtaDataSource" value="Vasja_DB"/> -->
+      <property name="javax.persistence.nonJtaDataSource" value="jdbc/vasja_caja_informe"/>
+      <property name="eclipselink.logging.level" value="INFO"/>
+      <property name="eclipselink.jdbc.exclusive-connection.mode" value="Transactional"/>
+      <property name="eclipselink.logging.level" value="SEVERE"/>
+      <property name="eclipselink.logging.level.transaction" value="SEVERE"/>
+      <property name="eclipselink.logging.level.sql" value="SEVERE"/>
+      <!--<property name="eclipselink.ddl-generation.output-mode" value="both"/>-->
+      <!--<property name="eclipselink.ddl-generation" value="create-tables"/>-->
+      <property name="eclipselink.ddl-generation.table-creation-suffix" value="engine=InnoDB"/>
+      <property name="eclipselink.ddl.default-table-suffix" value="engine=InnoDB"/>
+      <property name="eclipselink.application-location" value="c:\"/>
+    </properties>
+  </persistence-unit>
+</persistence>
