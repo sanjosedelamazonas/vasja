@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="VasjaModel">
+		<class>org.sanjose.config.GenDepartamento</class>
+		<class>org.sanjose.model.GenDistrito</class>
+		<class>org.sanjose.model.GenDistritoPK</class>
+		<class>org.sanjose.model.GenFeriado</class>
+		<class>org.sanjose.model.GenFeriadoregional</class>
+		<class>org.sanjose.model.GenInstitucional</class>
+		<class>org.sanjose.model.GenPai</class>
+		<class>org.sanjose.model.GenProvincia</class>
+		<class>org.sanjose.model.GenProvinciaPK</class>
+		<class>org.sanjose.model.GenUsuario</class>
+		<class>org.sanjose.model.GenUsuariofilial</class>
+		<class>org.sanjose.model.GenUsuariofilialPK</class>
+		<class>org.sanjose.model.ScpBanco</class>
+		<class>org.sanjose.model.ScpBancocabecera</class>
+		<class>org.sanjose.model.ScpBancocabeceraPK</class>
+		<class>org.sanjose.model.ScpBancodetalle</class>
+		<class>org.sanjose.model.ScpBancodetallePK</class>
+		<class>org.sanjose.config.ScpCaja</class>
+		<class>org.sanjose.config.ScpCajaPK</class>
+		<class>org.sanjose.model.ScpCajabanco</class>
+		<class>org.sanjose.model.ScpCajabancoPK</class>
+		<class>org.sanjose.model.ScpComprobantecabecera</class>
+		<class>org.sanjose.model.ScpComprobantecabeceraPK</class>
+		<class>org.sanjose.model.ScpComprobantedet</class>
+		<class>org.sanjose.model.ScpComprobantedetPK</class>
+		<class>org.sanjose.model.ScpComprobantedetalle</class>
+		<class>org.sanjose.model.ScpComprobantedetallePK</class>
+		<class>org.sanjose.model.ScpCuentabanco</class>
+		<class>org.sanjose.model.ScpCuentabancoPK</class>
+		<class>org.sanjose.model.ScpDepartamento</class>
+		<class>org.sanjose.config.ScpDestino</class>
+		<class>org.sanjose.model.ScpDestinorendicion</class>
+		<class>org.sanjose.model.ScpFilial</class>
+		<class>org.sanjose.model.ScpOperacioncaja</class>
+		<class>org.sanjose.config.ScpPlancontable</class>
+		<class>org.sanjose.config.ScpPlancontablePK</class>
+		<class>org.sanjose.config.ScpProyecto</class>
+		<class>org.sanjose.model.ScpRendicioncabecera</class>
+		<class>org.sanjose.model.ScpRendicioncabeceraPK</class>
+		<class>org.sanjose.model.ScpRendiciondetalle</class>
+		<class>org.sanjose.model.ScpRendiciondetallePK</class>
+		<class>org.sanjose.model.ScpRubro</class>
+		<class>org.sanjose.config.ScpTipocambio</class>
+		<class>org.sanjose.config.ScpTipocambioPK</class>
+		<class>org.sanjose.model.ScpTipoctabanco</class>
+		<class>org.sanjose.model.ScpTipodocumento</class>
+		<class>org.sanjose.model.ScpTipoingreso</class>
+		<class>org.sanjose.config.ScpTipomoneda</class>
+		<class>org.sanjose.model.ScpTipomovimientocaja</class>
+		<class>org.sanjose.model.ScpTipooperacion</class>
+	</persistence-unit>
+</persistence>

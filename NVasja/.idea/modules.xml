@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/NVasja.iml" filepath="$PROJECT_DIR$/.idea/modules/NVasja.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/NVasja_main.iml" filepath="$PROJECT_DIR$/.idea/modules/NVasja_main.iml" group="NVasja" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/NVasja_test.iml" filepath="$PROJECT_DIR$/.idea/modules/NVasja_test.iml" group="NVasja" />
+    </modules>
+  </component>
+</project>
